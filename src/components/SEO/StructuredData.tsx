@@ -18,7 +18,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
           ...baseSchema,
           "@type": "LocalBusiness",
           "name": data.name || "SEFOSA",
-          "description": data.description || "Organisme de formation spécialisé en secourisme et sécurité incendie",
+          "description": data.description || "Formateur indépendant spécialisé en secourisme et sécurité incendie",
           "url": "https://www.sefosa85.fr",
           "telephone": data.telephone || "+33672128440",
           "email": data.email || "contact@sefosa85.fr",
@@ -42,7 +42,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
           "name": data.name,
           "description": data.description,
           "provider": {
-            "@type": "Organization",
+            "@type": "Person",
             "name": data.provider || "SEFOSA",
             "url": "https://www.sefosa85.fr"
           },
