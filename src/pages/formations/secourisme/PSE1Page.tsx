@@ -18,9 +18,17 @@ import {
 import { trackEvent } from '../../../utils/analytics';
 import StructuredData from '../../../components/SEO/StructuredData';
 import BreadcrumbNav from '../../../components/UI/BreadcrumbNav';
+import { getFormationTheme, getFormationTextHex, hexToRgba } from '../../../utils/formationThemes';
 
 const PSE1Page = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
+
+  const theme = getFormationTheme('pse1');
+  const themeHex = getFormationTextHex('pse1');
+  const highlightStyles: React.CSSProperties = {
+    backgroundColor: hexToRgba(themeHex, 0.12),
+    borderColor: themeHex
+  };
 
   const handleCTAClick = (location: string) => {
     trackEvent('pse1_cta_click', { location });
@@ -215,28 +223,28 @@ const PSE1Page = () => {
         <BreadcrumbNav items={breadcrumbItems} />
 
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-orange-500 to-orange-600 text-white py-16">
+        <section className={`bg-gradient-to-br ${theme.gradient} text-white py-16`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 bg-orange-400/20 px-4 py-2 rounded-full mb-6">
+                <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6">
                   <Shield className="w-5 h-5" />
                   <span className="font-medium">Formation équipier secouriste</span>
                 </div>
                 
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
                   Formation PSE1 Vendée
-                  <span className="block text-2xl lg:text-3xl font-normal text-orange-100 mt-2">
+                  <span className="block text-2xl lg:text-3xl font-normal text-white/80 mt-2">
                     Premiers Secours en Équipe niveau 1
                   </span>
                 </h1>
 
-                <p className="text-xl text-orange-100 mb-6 leading-relaxed">
+                <p className="text-xl text-white/80 mb-6 leading-relaxed">
                   <strong>Devenez équipier secouriste</strong> avec notre formation PSE1 de 35h. 
                   Techniques avancées, matériel spécialisé, intervention en équipe.
                 </p>
 
-                <div className="flex items-center gap-6 mb-8 text-orange-100">
+                <div className="flex items-center gap-6 mb-8 text-white/80">
                   <div className="flex items-center gap-2">
                     <Clock className="w-5 h-5" />
                     <span>35h de formation</span>
@@ -255,7 +263,7 @@ const PSE1Page = () => {
                   <Link
                     to="/devis-et-calendrier"
                     onClick={() => handleCTAClick('hero_primary')}
-                    className="bg-white text-orange-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                    className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.text}`}
                   >
                     <FileText className="w-5 h-5" />
                     S'inscrire au PSE1
@@ -263,7 +271,7 @@ const PSE1Page = () => {
                   <a
                     href="tel:+33672128440"
                     onClick={() => handleCTAClick('hero_phone')}
-                    className="bg-orange-700 text-white px-8 py-4 rounded-lg hover:bg-orange-800 transition-all font-bold text-lg inline-flex items-center justify-center gap-2"
+                    className={`px-8 py-4 rounded-lg transition-all font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.button}`}
                   >
                     <Phone className="w-5 h-5" />
                     06 72 12 84 40
@@ -339,21 +347,21 @@ const PSE1Page = () => {
               })}
             </div>
 
-            <div className="bg-orange-50 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-orange-600 mb-4 text-center">
+            <div className="rounded-xl p-8 border" style={highlightStyles}>
+              <h3 className={`text-xl font-bold ${theme.text} mb-4 text-center`}>
                 Formation d'équipier secouriste
               </h3>
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
-                  <div className="text-3xl font-bold text-orange-600 mb-2">35h</div>
+                  <div className={`text-3xl font-bold ${theme.text} mb-2`}>35h</div>
                   <p className="text-gray-700">Formation complète</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-orange-600 mb-2">10</div>
+                  <div className={`text-3xl font-bold ${theme.text} mb-2`}>10</div>
                   <p className="text-gray-700">Modules techniques</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-orange-600 mb-2">6h</div>
+                  <div className={`text-3xl font-bold ${theme.text} mb-2`}>6h</div>
                   <p className="text-gray-700">Formation continue/an</p>
                 </div>
               </div>
@@ -433,12 +441,12 @@ const PSE1Page = () => {
         </section>
 
         {/* CTA Final */}
-        <section className="py-16 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+        <section className={`py-16 bg-gradient-to-r ${theme.gradient} text-white`}>
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Devenez équipier secouriste
             </h2>
-            <p className="text-xl mb-8 text-orange-100">
+            <p className="text-xl mb-8 text-white/80">
               Formation PSE1 • 35h de techniques avancées • Matériel spécialisé
             </p>
             
@@ -446,14 +454,14 @@ const PSE1Page = () => {
               <Link
                 to="/devis-et-calendrier"
                 onClick={() => handleCTAClick('final_cta')}
-                className="bg-white text-orange-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.text}`}
               >
                 <FileText className="w-5 h-5" />
                 S'inscrire au PSE1
               </Link>
               <a
                 href="tel:+33672128440"
-                className="bg-orange-700 text-white px-8 py-4 rounded-lg hover:bg-orange-800 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`px-8 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.button}`}
               >
                 <Phone className="w-5 h-5" />
                 06 72 12 84 40

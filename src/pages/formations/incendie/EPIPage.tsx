@@ -17,9 +17,12 @@ import {
 import { trackEvent } from '../../../utils/analytics';
 import StructuredData from '../../../components/SEO/StructuredData';
 import BreadcrumbNav from '../../../components/UI/BreadcrumbNav';
+import { getFormationTheme } from '../../../utils/formationThemes';
 
 const EPIPage = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
+
+  const theme = getFormationTheme('epi');
 
   const handleCTAClick = (location: string) => {
     trackEvent('epi_cta_click', { location });
@@ -119,28 +122,28 @@ const EPIPage = () => {
         <BreadcrumbNav items={breadcrumbItems} />
 
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-red-500 to-red-600 text-white py-16">
+        <section className={`bg-gradient-to-br ${theme.gradient} text-white py-16`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 bg-red-400/20 px-4 py-2 rounded-full mb-6">
+                <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6">
                   <Shield className="w-5 h-5" />
                   <span className="font-medium">Formation obligatoire</span>
                 </div>
                 
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
                   Formation EPI Vendée (85)
-                  <span className="block text-2xl lg:text-3xl font-normal text-red-100 mt-2">
+                  <span className="block text-2xl lg:text-3xl font-normal text-white/80 mt-2">
                     Équipier de Première Intervention
                   </span>
                 </h1>
 
-                <p className="text-xl text-red-100 mb-6 leading-relaxed">
+                <p className="text-xl text-white/80 mb-6 leading-relaxed">
                   <strong>Formez vos équipiers</strong> à la lutte contre l'incendie avec notre formation EPI de 3h30. 
                   Exercices pratiques sur feux réels garantis.
                 </p>
 
-                <div className="flex items-center gap-6 mb-8 text-red-100">
+                <div className="flex items-center gap-6 mb-8 text-white/80">
                   <div className="flex items-center gap-2">
                     <Clock className="w-5 h-5" />
                     <span>3h30 de formation</span>
@@ -159,7 +162,7 @@ const EPIPage = () => {
                   <Link
                     to="/devis-et-calendrier"
                     onClick={() => handleCTAClick('hero_primary')}
-                    className="bg-white text-red-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                    className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.text}`}
                   >
                     <FileText className="w-5 h-5" />
                     Devis gratuit sous 24h
@@ -167,7 +170,7 @@ const EPIPage = () => {
                   <a
                     href="tel:+33672128440"
                     onClick={() => handleCTAClick('hero_phone')}
-                    className="bg-red-700 text-white px-8 py-4 rounded-lg hover:bg-red-800 transition-all font-bold text-lg inline-flex items-center justify-center gap-2"
+                    className={`px-8 py-4 rounded-lg transition-all font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.button}`}
                   >
                     <Phone className="w-5 h-5" />
                     06 72 12 84 40
@@ -293,12 +296,12 @@ const EPIPage = () => {
         </section>
 
         {/* CTA Final */}
-        <section className="py-16 bg-gradient-to-r from-red-500 to-red-600 text-white">
+        <section className={`py-16 bg-gradient-to-r ${theme.gradient} text-white`}>
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Formez vos équipiers de première intervention
             </h2>
-            <p className="text-xl mb-8 text-red-100">
+            <p className="text-xl mb-8 text-white/80">
               Formation EPI • Feux réels • Matériel fourni • Sur votre site
             </p>
             
@@ -306,14 +309,14 @@ const EPIPage = () => {
               <Link
                 to="/devis-et-calendrier"
                 onClick={() => handleCTAClick('final_cta')}
-                className="bg-white text-red-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.text}`}
               >
                 <FileText className="w-5 h-5" />
                 Demander un devis EPI
               </Link>
               <a
                 href="tel:+33672128440"
-                className="bg-red-700 text-white px-8 py-4 rounded-lg hover:bg-red-800 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`px-8 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.button}`}
               >
                 <Phone className="w-5 h-5" />
                 06 72 12 84 40
