@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MapPin, ChevronDown } from 'lucide-react';
 import { trackEvent } from '../../utils/analytics';
@@ -7,6 +7,27 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFormationsOpen, setIsFormationsOpen] = useState(false);
   const location = useLocation();
+  const formationsCloseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearFormationsCloseTimeout = () => {
+    if (formationsCloseTimeout.current) {
+      clearTimeout(formationsCloseTimeout.current);
+      formationsCloseTimeout.current = null;
+    }
+  };
+
+  const handleFormationsMouseEnter = () => {
+    clearFormationsCloseTimeout();
+    setIsFormationsOpen(true);
+  };
+
+  const handleFormationsMouseLeave = () => {
+    clearFormationsCloseTimeout();
+    formationsCloseTimeout.current = setTimeout(() => {
+      setIsFormationsOpen(false);
+      formationsCloseTimeout.current = null;
+    }, 120);
+  };
 
   const handlePhoneClick = () => {
     trackEvent('phone_click', { location: 'header' });
@@ -16,6 +37,10 @@ const Header = () => {
   const handleDevisClick = () => {
     trackEvent('devis_click', { location: 'header' });
   };
+
+  useEffect(() => {
+    return () => clearFormationsCloseTimeout();
+  }, []);
 
   return (
     <>
@@ -63,8 +88,8 @@ const Header = () => {
             <nav className="hidden lg:flex items-center gap-6">
               <div
                 className="relative"
-                onMouseEnter={() => setIsFormationsOpen(true)}
-                onMouseLeave={() => setIsFormationsOpen(false)}
+                onMouseEnter={handleFormationsMouseEnter}
+                onMouseLeave={handleFormationsMouseLeave}
               >
                 <button className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors font-medium">
                   Formations
@@ -72,7 +97,11 @@ const Header = () => {
                 </button>
                 
                 {isFormationsOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border py-2 z-50">
+                  <div
+                    className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border py-2 z-50"
+                    onMouseEnter={handleFormationsMouseEnter}
+                    onMouseLeave={handleFormationsMouseLeave}
+                  >
                     <div className="px-4 py-2 text-sm font-semibold text-gray-500 border-b">Secourisme</div>
                     <Link to="/formations/secourisme/sst" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
                       SST - Sauveteur Secouriste du Travail
