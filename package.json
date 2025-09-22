@@ -2,6 +2,7 @@
   "name": "vite-react-typescript-starter",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://le-bonnet-digital.github.io/sefosa85/",
   "type": "module",
   "scripts": {
     "dev": "vite",
