@@ -45,9 +45,9 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className="bg-white shadow-lg sticky top-0 z-50">
+      <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-3">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
@@ -60,8 +60,8 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              <div 
+            <nav className="hidden lg:flex items-center gap-6">
+              <div
                 className="relative"
                 onMouseEnter={() => setIsFormationsOpen(true)}
                 onMouseLeave={() => setIsFormationsOpen(false)}
@@ -147,10 +147,10 @@ const Header = () => {
             </nav>
 
             {/* CTA Button */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-5">
               <button
                 onClick={handlePhoneClick}
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+                className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-2.5 text-gray-700 hover:text-blue-600 hover:border-blue-200 transition-colors font-medium"
               >
                 <Phone className="w-4 h-4" />
                 06 72 12 84 40
@@ -158,7 +158,7 @@ const Header = () => {
               <Link
                 to="/devis-et-calendrier"
                 onClick={handleDevisClick}
-                className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-red-500/90 px-5 py-2.5 text-white font-semibold transition-colors hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
               >
                 Devis express
               </Link>
@@ -229,7 +229,7 @@ const Header = () => {
                 <div className="pt-4 space-y-2">
                   <button
                     onClick={handlePhoneClick}
-                    className="w-full bg-blue-100 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-200 transition-colors font-medium flex items-center justify-center gap-2"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 px-4 py-3 text-gray-700 hover:text-blue-600 hover:border-blue-200 transition-colors font-medium"
                   >
                     <Phone className="w-4 h-4" />
                     Appeler maintenant
@@ -237,7 +237,7 @@ const Header = () => {
                   <Link
                     to="/devis-et-calendrier"
                     onClick={handleDevisClick}
-                    className="block w-full bg-red-500 text-white px-4 py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold text-center"
+                    className="block w-full rounded-full bg-red-500/90 px-4 py-3 text-white font-semibold text-center transition-colors hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
                   >
                     Devis express
                   </Link>
