@@ -19,18 +19,11 @@ test('Desktop navigation uses a uniform gap spacing utility', async () => {
   assert.equal(navClasses.includes('space-x-8'), false, 'Legacy space-x-8 utility should be removed');
 });
 
-test('Desktop phone action keeps a neutral emphasis', async () => {
+test('Main header avoids duplicating the phone CTA', async () => {
   const contents = await read('src/components/Layout/Header.tsx');
-  const phoneClasses = extractClassList(
-    contents,
-    /onClick={handlePhoneClick}[\s\S]*?className=\"([^\"]*)\"/g,
-    1
-  );
+  const phoneTriggers = [...contents.matchAll(/onClick={handlePhoneClick}/g)];
 
-  assert.ok(/\btext-gray-700\b/.test(phoneClasses), 'Phone button should use a neutral text-gray-700 color');
-  assert.equal(/(^|\s)text-blue-600(\s|$)/.test(phoneClasses), false, 'Phone button should no longer use text-blue-600 base color');
-  assert.ok(phoneClasses.includes('rounded-full'), 'Phone button should have rounded-full shape for harmony');
-  assert.ok(phoneClasses.includes('border'), 'Phone button should include a subtle border');
+  assert.equal(phoneTriggers.length, 1, 'Phone CTA should only exist in the top info bar');
 });
 
 test('Desktop quote CTA avoids heavy visual treatments', async () => {

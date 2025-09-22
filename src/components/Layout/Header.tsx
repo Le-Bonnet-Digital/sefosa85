@@ -147,14 +147,7 @@ const Header = () => {
             </nav>
 
             {/* CTA Button */}
-            <div className="hidden lg:flex items-center gap-5">
-              <button
-                onClick={handlePhoneClick}
-                className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-2.5 text-gray-700 hover:text-blue-600 hover:border-blue-200 transition-colors font-medium"
-              >
-                <Phone className="w-4 h-4" />
-                06 72 12 84 40
-              </button>
+            <div className="hidden lg:flex items-center">
               <Link
                 to="/devis-et-calendrier"
                 onClick={handleDevisClick}
@@ -226,14 +219,7 @@ const Header = () => {
                   Contact
                 </Link>
                 
-                <div className="pt-4 space-y-2">
-                  <button
-                    onClick={handlePhoneClick}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 px-4 py-3 text-gray-700 hover:text-blue-600 hover:border-blue-200 transition-colors font-medium"
-                  >
-                    <Phone className="w-4 h-4" />
-                    Appeler maintenant
-                  </button>
+                <div className="pt-4">
                   <Link
                     to="/devis-et-calendrier"
                     onClick={handleDevisClick}
