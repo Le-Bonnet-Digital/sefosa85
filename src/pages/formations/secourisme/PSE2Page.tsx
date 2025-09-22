@@ -19,12 +19,17 @@ import {
 import { trackEvent } from '../../../utils/analytics';
 import StructuredData from '../../../components/SEO/StructuredData';
 import BreadcrumbNav from '../../../components/UI/BreadcrumbNav';
-import { getFormationTheme } from '../../../utils/formationThemes';
+import { getFormationTheme, getFormationTextHex, hexToRgba } from '../../../utils/formationThemes';
 
 const PSE2Page = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
 
   const theme = getFormationTheme('pse2');
+  const themeHex = getFormationTextHex('pse2');
+  const highlightStyles: React.CSSProperties = {
+    backgroundColor: hexToRgba(themeHex, 0.12),
+    borderColor: themeHex
+  };
 
   const handleCTAClick = (location: string) => {
     trackEvent('pse2_cta_click', { location });
@@ -361,21 +366,21 @@ const PSE2Page = () => {
               })}
             </div>
 
-            <div className="bg-purple-50 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-purple-600 mb-4 text-center">
+            <div className="rounded-xl p-8 border" style={highlightStyles}>
+              <h3 className={`text-xl font-bold ${theme.text} mb-4 text-center`}>
                 Formation d'équipier expert
               </h3>
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">35h</div>
+                  <div className={`text-3xl font-bold ${theme.text} mb-2`}>35h</div>
                   <p className="text-gray-700">Formation experte</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">12</div>
+                  <div className={`text-3xl font-bold ${theme.text} mb-2`}>12</div>
                   <p className="text-gray-700">Modules avancés</p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">PSE1</div>
+                  <div className={`text-3xl font-bold ${theme.text} mb-2`}>PSE1</div>
                   <p className="text-gray-700">Prérequis obligatoire</p>
                 </div>
               </div>

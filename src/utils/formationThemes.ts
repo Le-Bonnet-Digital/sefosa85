@@ -15,6 +15,8 @@ type FormationTheme = {
   text: string;
 };
 
+const HEX_COLOR_PATTERN = /#[0-9a-fA-F]{6}/;
+
 export const formationThemes: Record<FormationThemeKey, FormationTheme> = {
   sst: {
     gradient: 'from-[#7f1d1d] to-[#450a0a]',
@@ -75,3 +77,27 @@ type SupportedHomeCard =
 
 export const getFormationTheme = (slug: FormationThemeKey | SupportedHomeCard) =>
   formationThemes[slug as FormationThemeKey];
+
+export const getFormationTextHex = (slug: FormationThemeKey | SupportedHomeCard) => {
+  const match = getFormationTheme(slug).text.match(HEX_COLOR_PATTERN);
+
+  if (!match) {
+    throw new Error(`Formation theme ${slug} is missing a hexadecimal text colour`);
+  }
+
+  return match[0];
+};
+
+export const hexToRgba = (hex: string, alpha: number) => {
+  const match = hex.match(/#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/);
+
+  if (!match) {
+    throw new Error(`Invalid hex colour provided: ${hex}`);
+  }
+
+  const [, r, g, b] = match;
+
+  const toDecimal = (value: string) => parseInt(value, 16);
+
+  return `rgba(${toDecimal(r)}, ${toDecimal(g)}, ${toDecimal(b)}, ${alpha})`;
+};
