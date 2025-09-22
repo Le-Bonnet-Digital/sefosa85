@@ -19,7 +19,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-300 mb-6 text-sm leading-relaxed">
-              Organisme de formation spécialisé dans le secourisme et la sécurité incendie. 
+              Formateur indépendant spécialisé dans le secourisme et la sécurité incendie.
               Interventions en Vendée et départements limitrophes.
             </p>
             <div className="flex gap-4">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MapPin, ChevronDown } from 'lucide-react';
 import { trackEvent } from '../../utils/analytics';
@@ -7,6 +7,27 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFormationsOpen, setIsFormationsOpen] = useState(false);
   const location = useLocation();
+  const formationsCloseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearFormationsCloseTimeout = () => {
+    if (formationsCloseTimeout.current) {
+      clearTimeout(formationsCloseTimeout.current);
+      formationsCloseTimeout.current = null;
+    }
+  };
+
+  const handleFormationsMouseEnter = () => {
+    clearFormationsCloseTimeout();
+    setIsFormationsOpen(true);
+  };
+
+  const handleFormationsMouseLeave = () => {
+    clearFormationsCloseTimeout();
+    formationsCloseTimeout.current = setTimeout(() => {
+      setIsFormationsOpen(false);
+      formationsCloseTimeout.current = null;
+    }, 120);
+  };
 
   const handlePhoneClick = () => {
     trackEvent('phone_click', { location: 'header' });
@@ -16,6 +37,10 @@ const Header = () => {
   const handleDevisClick = () => {
     trackEvent('devis_click', { location: 'header' });
   };
+
+  useEffect(() => {
+    return () => clearFormationsCloseTimeout();
+  }, []);
 
   return (
     <>
@@ -45,9 +70,9 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className="bg-white shadow-lg sticky top-0 z-50">
+      <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-3">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
@@ -60,11 +85,11 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              <div 
+            <nav className="hidden lg:flex items-center gap-6">
+              <div
                 className="relative"
-                onMouseEnter={() => setIsFormationsOpen(true)}
-                onMouseLeave={() => setIsFormationsOpen(false)}
+                onMouseEnter={handleFormationsMouseEnter}
+                onMouseLeave={handleFormationsMouseLeave}
               >
                 <button className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors font-medium">
                   Formations
@@ -72,7 +97,11 @@ const Header = () => {
                 </button>
                 
                 {isFormationsOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border py-2 z-50">
+                  <div
+                    className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border py-2 z-50"
+                    onMouseEnter={handleFormationsMouseEnter}
+                    onMouseLeave={handleFormationsMouseLeave}
+                  >
                     <div className="px-4 py-2 text-sm font-semibold text-gray-500 border-b">Secourisme</div>
                     <Link to="/formations/secourisme/sst" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
                       SST - Sauveteur Secouriste du Travail
@@ -147,18 +176,11 @@ const Header = () => {
             </nav>
 
             {/* CTA Button */}
-            <div className="hidden lg:flex items-center gap-4">
-              <button
-                onClick={handlePhoneClick}
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
-              >
-                <Phone className="w-4 h-4" />
-                06 72 12 84 40
-              </button>
+            <div className="hidden lg:flex items-center">
               <Link
                 to="/devis-et-calendrier"
                 onClick={handleDevisClick}
-                className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-red-500/90 px-5 py-2.5 text-white font-semibold transition-colors hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
               >
                 Devis express
               </Link>
@@ -226,18 +248,11 @@ const Header = () => {
                   Contact
                 </Link>
                 
-                <div className="pt-4 space-y-2">
-                  <button
-                    onClick={handlePhoneClick}
-                    className="w-full bg-blue-100 text-blue-600 px-4 py-3 rounded-lg hover:bg-blue-200 transition-colors font-medium flex items-center justify-center gap-2"
-                  >
-                    <Phone className="w-4 h-4" />
-                    Appeler maintenant
-                  </button>
+                <div className="pt-4">
                   <Link
                     to="/devis-et-calendrier"
                     onClick={handleDevisClick}
-                    className="block w-full bg-red-500 text-white px-4 py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold text-center"
+                    className="block w-full rounded-full bg-red-500/90 px-4 py-3 text-white font-semibold text-center transition-colors hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
                   >
                     Devis express
                   </Link>

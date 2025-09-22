@@ -94,11 +94,11 @@ const AProposPage = () => {
 
   return (
     <>
-      <StructuredData 
-        type="LocalBusiness" 
+      <StructuredData
+        type="LocalBusiness"
         data={{
           name: "SEFOSA - À propos",
-          description: "Découvrez SEFOSA, organisme de formation spécialisé en secourisme et sécurité incendie en Vendée. Formateur certifié, 15+ ans d'expérience.",
+          description: "Découvrez SEFOSA, formateur indépendant spécialisé en secourisme et sécurité incendie en Vendée. Formateur certifié, 15+ ans d'expérience.",
           telephone: "+33672128440",
           email: "contact@sefosa85.fr",
           areaServed: ["Vendée", "Loire-Atlantique", "Maine-et-Loire", "Deux-Sèvres"]
@@ -119,8 +119,8 @@ const AProposPage = () => {
             </h1>
 
             <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Organisme de formation spécialisé en secourisme et sécurité incendie, 
-              <strong> SEFOSA</strong> accompagne les entreprises et particuliers 
+              Formateur indépendant spécialisé en secourisme et sécurité incendie,
+              <strong> SEFOSA</strong> accompagne les entreprises et particuliers
               en Vendée depuis plus de 15 ans.
             </p>
 
