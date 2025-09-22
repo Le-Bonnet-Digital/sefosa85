@@ -38,9 +38,17 @@ const Header = () => {
     trackEvent('devis_click', { location: 'header' });
   };
 
+  const handleMobileLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
   useEffect(() => {
     return () => clearFormationsCloseTimeout();
   }, []);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -202,56 +210,107 @@ const Header = () => {
                 <div className="py-2">
                   <div className="text-sm font-semibold text-gray-500 mb-2">Formations Secourisme</div>
                   <div className="pl-4 space-y-2">
-                    <Link to="/formations/secourisme/sst" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/secourisme/sst"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       SST
                     </Link>
-                    <Link to="/formations/secourisme/mac-sst" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/secourisme/mac-sst"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       MAC SST
                     </Link>
-                    <Link to="/formations/secourisme/psc1" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/secourisme/psc1"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       PSC1
                     </Link>
-                    <Link to="/formations/secourisme/gestes-qui-sauvent" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/secourisme/gestes-qui-sauvent"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       Gestes Qui Sauvent
                     </Link>
                   </div>
                 </div>
-                
+
                 <div className="py-2">
                   <div className="text-sm font-semibold text-gray-500 mb-2">Formations Incendie</div>
                   <div className="pl-4 space-y-2">
-                    <Link to="/formations/incendie/epi" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/incendie/epi"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       EPI
                     </Link>
-                    <Link to="/formations/incendie/extincteur" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/incendie/extincteur"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       Manipulation extincteur
                     </Link>
-                    <Link to="/formations/incendie/evacuation" className="block text-gray-700 hover:text-blue-600">
+                    <Link
+                      to="/formations/incendie/evacuation"
+                      className="block text-gray-700 hover:text-blue-600"
+                      onClick={handleMobileLinkClick}
+                    >
                       Évacuation
                     </Link>
                   </div>
                 </div>
 
-                <Link to="/devis-et-calendrier" className="block py-3 text-gray-700 hover:text-blue-600">
+                <Link
+                  to="/devis-et-calendrier"
+                  className="block py-3 text-gray-700 hover:text-blue-600"
+                  onClick={handleMobileLinkClick}
+                >
                   Calendrier & Devis
                 </Link>
-                <Link to="/vendee" className="block py-3 text-gray-700 hover:text-blue-600">
+                <Link
+                  to="/vendee"
+                  className="block py-3 text-gray-700 hover:text-blue-600"
+                  onClick={handleMobileLinkClick}
+                >
                   Zone d'intervention
                 </Link>
-                <Link to="/avis" className="block py-3 text-gray-700 hover:text-blue-600">
+                <Link
+                  to="/avis"
+                  className="block py-3 text-gray-700 hover:text-blue-600"
+                  onClick={handleMobileLinkClick}
+                >
                   Avis clients
                 </Link>
-                <Link to="/a-propos" className="block py-3 text-gray-700 hover:text-blue-600">
+                <Link
+                  to="/a-propos"
+                  className="block py-3 text-gray-700 hover:text-blue-600"
+                  onClick={handleMobileLinkClick}
+                >
                   À propos
                 </Link>
-                <Link to="/contact" className="block py-3 text-gray-700 hover:text-blue-600">
+                <Link
+                  to="/contact"
+                  className="block py-3 text-gray-700 hover:text-blue-600"
+                  onClick={handleMobileLinkClick}
+                >
                   Contact
                 </Link>
-                
+
                 <div className="pt-4">
                   <Link
                     to="/devis-et-calendrier"
-                    onClick={handleDevisClick}
+                    onClick={() => {
+                      handleDevisClick();
+                      handleMobileLinkClick();
+                    }}
                     className="block w-full rounded-full bg-red-500/90 px-4 py-3 text-white font-semibold text-center transition-colors hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
                   >
                     Devis express
