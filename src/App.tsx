@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import StickyDevisCTA from './components/UI/StickyDevisCTA';
+import ScrollToTop from './components/Routing/ScrollToTop';
 import HomePage from './pages/HomePage';
 import FormationsSecourismePage from './pages/formations/FormationsSecourismePage';
 import SSTPage from './pages/formations/secourisme/SSTPage';
@@ -33,6 +34,7 @@ initializeAnalytics();
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-white">
         <Header />
         <main>
