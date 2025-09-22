@@ -17,9 +17,12 @@ import {
 import { trackEvent } from '../../../utils/analytics';
 import StructuredData from '../../../components/SEO/StructuredData';
 import BreadcrumbNav from '../../../components/UI/BreadcrumbNav';
+import { getFormationTheme } from '../../../utils/formationThemes';
 
 const MacSSTPage = () => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
+
+  const theme = getFormationTheme('mac-sst');
 
   const handleCTAClick = (location: string) => {
     trackEvent('mac_sst_cta_click', { location });
@@ -129,28 +132,28 @@ const MacSSTPage = () => {
         <BreadcrumbNav items={breadcrumbItems} />
 
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-orange-500 to-orange-600 text-white py-16">
+        <section className={`bg-gradient-to-br ${theme.gradient} text-white py-16`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 bg-orange-400/20 px-4 py-2 rounded-full mb-6">
+                <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6">
                   <RefreshCw className="w-5 h-5" />
                   <span className="font-medium">Formation de recyclage</span>
                 </div>
                 
                 <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
                   MAC SST Vendée (85)
-                  <span className="block text-2xl lg:text-3xl font-normal text-orange-100 mt-2">
+                  <span className="block text-2xl lg:text-3xl font-normal text-white/80 mt-2">
                     Maintien & Actualisation des Compétences
                   </span>
                 </h1>
 
-                <p className="text-xl text-orange-100 mb-6 leading-relaxed">
+                <p className="text-xl text-white/80 mb-6 leading-relaxed">
                   <strong>Recyclez votre certification SST</strong> avec notre formation MAC de 7h. 
                   Obligatoire tous les 24 mois pour maintenir vos compétences à jour.
                 </p>
 
-                <div className="flex items-center gap-6 mb-8 text-orange-100">
+                <div className="flex items-center gap-6 mb-8 text-white/80">
                   <div className="flex items-center gap-2">
                     <Clock className="w-5 h-5" />
                     <span>7h de formation</span>
@@ -169,7 +172,7 @@ const MacSSTPage = () => {
                   <Link
                     to="/devis-et-calendrier"
                     onClick={() => handleCTAClick('hero_primary')}
-                    className="bg-white text-orange-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                    className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.text}`}
                   >
                     <FileText className="w-5 h-5" />
                     Planifier mon MAC SST
@@ -177,7 +180,7 @@ const MacSSTPage = () => {
                   <a
                     href="tel:+33672128440"
                     onClick={() => handleCTAClick('hero_phone')}
-                    className="bg-orange-700 text-white px-8 py-4 rounded-lg hover:bg-orange-800 transition-all font-bold text-lg inline-flex items-center justify-center gap-2"
+                    className={`px-8 py-4 rounded-lg transition-all font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.button}`}
                   >
                     <Phone className="w-5 h-5" />
                     06 72 12 84 40
@@ -519,12 +522,12 @@ const MacSSTPage = () => {
         </section>
 
         {/* CTA Final */}
-        <section className="py-16 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+        <section className={`py-16 bg-gradient-to-r ${theme.gradient} text-white`}>
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Ne laissez pas expirer votre certification SST
             </h2>
-            <p className="text-xl mb-8 text-orange-100">
+            <p className="text-xl mb-8 text-white/80">
               Programmez votre MAC SST dès maintenant • Devis sous 24h • Intervention rapide
             </p>
             
@@ -532,14 +535,14 @@ const MacSSTPage = () => {
               <Link
                 to="/devis-et-calendrier"
                 onClick={() => handleCTAClick('final_cta')}
-                className="bg-white text-orange-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.text}`}
               >
                 <FileText className="w-5 h-5" />
                 Programmer mon MAC SST
               </Link>
               <a
                 href="tel:+33672128440"
-                className="bg-orange-700 text-white px-8 py-4 rounded-lg hover:bg-orange-800 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`px-8 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${theme.button}`}
               >
                 <Phone className="w-5 h-5" />
                 06 72 12 84 40

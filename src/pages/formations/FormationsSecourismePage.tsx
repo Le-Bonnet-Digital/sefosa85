@@ -15,11 +15,18 @@ import {
 import { trackEvent } from '../../utils/analytics';
 import StructuredData from '../../components/SEO/StructuredData';
 import BreadcrumbNav from '../../components/UI/BreadcrumbNav';
+import { formationThemes, getFormationTheme } from '../../utils/formationThemes';
 
 const FormationsSecourismePage = () => {
   const handleCTAClick = (location: string) => {
     trackEvent('secourisme_cta_click', { location });
   };
+
+  const sstTheme = getFormationTheme('sst');
+  const macSstTheme = getFormationTheme('mac-sst');
+  const psc1Theme = getFormationTheme('psc1');
+  const gqsTheme = getFormationTheme('gestes-qui-sauvent');
+  const pse1Theme = getFormationTheme('pse1');
 
   const formations = [
     {
@@ -30,7 +37,7 @@ const FormationsSecourismePage = () => {
       description: 'Formation obligatoire pour porter secours aux victimes d\'accident du travail',
       participants: '4-10 personnes',
       price: 'À partir de 1200€ HT',
-      color: 'from-red-500 to-red-600',
+      themeKey: 'sst',
       icon: Shield,
       mandatory: true,
       popular: true
@@ -43,7 +50,7 @@ const FormationsSecourismePage = () => {
       description: 'Renouvellement obligatoire de la formation SST avant expiration',
       participants: '4-10 personnes',
       price: 'À partir de 800€ HT',
-      color: 'from-orange-500 to-orange-600',
+      themeKey: 'mac-sst',
       icon: Award,
       mandatory: true
     },
@@ -55,7 +62,7 @@ const FormationsSecourismePage = () => {
       description: 'Formation citoyenne aux premiers secours pour tous les publics',
       participants: '6-10 personnes',
       price: '60€ HT / personne',
-      color: 'from-blue-500 to-blue-600',
+      themeKey: 'psc1',
       icon: Heart,
       citizen: true,
       popular: true
@@ -68,7 +75,7 @@ const FormationsSecourismePage = () => {
       description: 'Formation courte et accessible aux gestes d\'urgence essentiels',
       participants: '6-12 personnes',
       price: '35€ HT / personne',
-      color: 'from-green-500 to-green-600',
+      themeKey: 'gestes-qui-sauvent',
       icon: Users,
       express: true
     },
@@ -80,7 +87,7 @@ const FormationsSecourismePage = () => {
       description: 'Formation approfondie pour équipiers secouristes (associations, entreprises)',
       participants: '6-8 personnes',
       price: 'Sur devis',
-      color: 'from-purple-500 to-purple-600',
+      themeKey: 'pse1',
       icon: Award,
       advanced: true
     },
@@ -92,7 +99,7 @@ const FormationsSecourismePage = () => {
       description: 'Perfectionnement PSE1 pour secouristes expérimentés',
       participants: '6-8 personnes',
       price: 'Sur devis',
-      color: 'from-indigo-500 to-indigo-600',
+      themeKey: 'pse2',
       icon: Award,
       advanced: true,
       prerequis: 'PSE1 requis'
@@ -121,7 +128,7 @@ const FormationsSecourismePage = () => {
         <BreadcrumbNav items={breadcrumbItems} />
 
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-16">
+        <section className="bg-gradient-to-br from-[#1e3a8a] to-[#172554] text-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl lg:text-5xl font-bold mb-6">
@@ -178,8 +185,9 @@ const FormationsSecourismePage = () => {
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-3 gap-8">
-              {formations.map((formation, index) => {
+              {formations.map((formation) => {
                 const IconComponent = formation.icon;
+                const theme = formationThemes[formation.themeKey];
                 return (
                   <div key={formation.slug} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden relative">
                     {formation.popular && (
@@ -190,7 +198,7 @@ const FormationsSecourismePage = () => {
                       </div>
                     )}
 
-                    <div className={`h-48 bg-gradient-to-br ${formation.color} flex items-center justify-center relative overflow-hidden`}>
+                    <div className={`h-48 bg-gradient-to-br ${theme.gradient} flex items-center justify-center relative overflow-hidden`}>
                       <IconComponent className="w-24 h-24 text-white" />
                       <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                         {formation.mandatory && (
@@ -254,7 +262,7 @@ const FormationsSecourismePage = () => {
 
                       <Link
                         to={`/formations/secourisme/${formation.slug}`}
-                        className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold inline-flex items-center justify-center gap-2"
+                        className={`w-full py-3 px-4 rounded-lg transition-colors font-semibold inline-flex items-center justify-center gap-2 ${theme.button}`}
                       >
                         Découvrir la formation
                         <ChevronRight className="w-4 h-4" />
@@ -389,34 +397,34 @@ const FormationsSecourismePage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               <Link
                 to="/vendee/la-roche-sur-yon"
-                className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${psc1Theme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-lg font-bold mb-2">La Roche-sur-Yon</h3>
-                <p className="text-blue-100 text-sm">Préfecture • Centre administratif</p>
+                <p className="text-white/80 text-sm">Préfecture • Centre administratif</p>
               </Link>
 
               <Link
                 to="/vendee/les-sables-d-olonne"
-                className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${gqsTheme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-lg font-bold mb-2">Les Sables-d'Olonne</h3>
-                <p className="text-green-100 text-sm">Littoral • Tourisme</p>
+                <p className="text-white/80 text-sm">Littoral • Tourisme</p>
               </Link>
 
               <Link
                 to="/vendee/challans"
-                className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${pse1Theme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-lg font-bold mb-2">Challans</h3>
-                <p className="text-purple-100 text-sm">Nord Vendée • Marais</p>
+                <p className="text-white/80 text-sm">Nord Vendée • Marais</p>
               </Link>
 
               <Link
                 to="/vendee"
-                className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${macSstTheme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-lg font-bold mb-2">Toute la Vendée</h3>
-                <p className="text-orange-100 text-sm">+ Dép. limitrophes</p>
+                <p className="text-white/80 text-sm">+ Dép. limitrophes</p>
               </Link>
             </div>
 
@@ -448,12 +456,12 @@ const FormationsSecourismePage = () => {
         </section>
 
         {/* CTA Final */}
-        <section className="py-16 bg-gradient-to-r from-red-500 to-red-600 text-white">
+        <section className={`py-16 bg-gradient-to-r ${sstTheme.gradient} text-white`}>
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Formez vos équipes aux gestes qui sauvent
             </h2>
-            <p className="text-xl mb-8 text-red-100">
+            <p className="text-xl mb-8 text-white/80">
               Devis personnalisé gratuit • Réponse garantie sous 24h • Intervention rapide
             </p>
             
@@ -461,14 +469,14 @@ const FormationsSecourismePage = () => {
               <Link
                 to="/devis-et-calendrier"
                 onClick={() => handleCTAClick('final_cta')}
-                className="bg-white text-red-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${sstTheme.text}`}
               >
                 <FileText className="w-5 h-5" />
                 Demander un devis gratuit
               </Link>
               <a
                 href="tel:+33672128440"
-                className="bg-red-700 text-white px-8 py-4 rounded-lg hover:bg-red-800 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`px-8 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${sstTheme.button}`}
               >
                 <Phone className="w-5 h-5" />
                 06 72 12 84 40

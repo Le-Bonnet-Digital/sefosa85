@@ -13,6 +13,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import { getFormationTheme } from '../utils/formationThemes';
 import StructuredData from '../components/SEO/StructuredData';
 
 const HomePage = () => {
@@ -23,6 +24,14 @@ const HomePage = () => {
   const handleFormationClick = (formation: string) => {
     trackEvent('formation_click', { formation, location: 'homepage' });
   };
+
+  const sstTheme = getFormationTheme('sst');
+  const psc1Theme = getFormationTheme('psc1');
+  const macSstTheme = getFormationTheme('mac-sst');
+  const epiTheme = getFormationTheme('epi');
+  const gqsTheme = getFormationTheme('gestes-qui-sauvent');
+  const pse1Theme = getFormationTheme('pse1');
+  const extincteurTheme = getFormationTheme('extincteur');
 
   return (
     <>
@@ -165,7 +174,7 @@ const HomePage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* SST */}
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center">
+                <div className={`h-48 bg-gradient-to-br ${sstTheme.gradient} flex items-center justify-center`}>
                   <Shield className="w-24 h-24 text-white" />
                 </div>
                 <div className="p-6">
@@ -183,7 +192,7 @@ const HomePage = () => {
                     <Link
                       to="/formations/secourisme/sst"
                       onClick={() => handleFormationClick('SST')}
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium inline-flex items-center gap-2"
+                      className={`px-4 py-2 rounded-lg transition-colors font-medium inline-flex items-center gap-2 ${sstTheme.button}`}
                     >
                       Découvrir
                       <ChevronRight className="w-4 h-4" />
@@ -194,7 +203,7 @@ const HomePage = () => {
 
               {/* PSC1 */}
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                <div className={`h-48 bg-gradient-to-br ${psc1Theme.gradient} flex items-center justify-center`}>
                   <Users className="w-24 h-24 text-white" />
                 </div>
                 <div className="p-6">
@@ -212,7 +221,7 @@ const HomePage = () => {
                     <Link
                       to="/formations/secourisme/psc1"
                       onClick={() => handleFormationClick('PSC1')}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium inline-flex items-center gap-2"
+                      className={`px-4 py-2 rounded-lg transition-colors font-medium inline-flex items-center gap-2 ${psc1Theme.button}`}
                     >
                       Découvrir
                       <ChevronRight className="w-4 h-4" />
@@ -223,7 +232,7 @@ const HomePage = () => {
 
               {/* EPI */}
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                <div className={`h-48 bg-gradient-to-br ${epiTheme.gradient} flex items-center justify-center`}>
                   <div className="text-white text-6xl">🔥</div>
                 </div>
                 <div className="p-6">
@@ -241,7 +250,7 @@ const HomePage = () => {
                     <Link
                       to="/formations/incendie/epi"
                       onClick={() => handleFormationClick('EPI')}
-                      className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium inline-flex items-center gap-2"
+                      className={`px-4 py-2 rounded-lg transition-colors font-medium inline-flex items-center gap-2 ${epiTheme.button}`}
                     >
                       Découvrir
                       <ChevronRight className="w-4 h-4" />
@@ -252,7 +261,7 @@ const HomePage = () => {
 
               {/* Gestes Qui Sauvent */}
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                <div className={`h-48 bg-gradient-to-br ${gqsTheme.gradient} flex items-center justify-center`}>
                   <div className="text-white text-6xl">💚</div>
                 </div>
                 <div className="p-6">
@@ -270,7 +279,7 @@ const HomePage = () => {
                     <Link
                       to="/formations/secourisme/gestes-qui-sauvent"
                       onClick={() => handleFormationClick('GQS')}
-                      className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors font-medium inline-flex items-center gap-2"
+                      className={`px-4 py-2 rounded-lg transition-colors font-medium inline-flex items-center gap-2 ${gqsTheme.button}`}
                     >
                       Découvrir
                       <ChevronRight className="w-4 h-4" />
@@ -281,7 +290,7 @@ const HomePage = () => {
 
               {/* PSE1 */}
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                <div className={`h-48 bg-gradient-to-br ${pse1Theme.gradient} flex items-center justify-center`}>
                   <Award className="w-24 h-24 text-white" />
                 </div>
                 <div className="p-6">
@@ -299,7 +308,7 @@ const HomePage = () => {
                     <Link
                       to="/formations/secourisme/pse1"
                       onClick={() => handleFormationClick('PSE1')}
-                      className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors font-medium inline-flex items-center gap-2"
+                      className={`px-4 py-2 rounded-lg transition-colors font-medium inline-flex items-center gap-2 ${pse1Theme.button}`}
                     >
                       Découvrir
                       <ChevronRight className="w-4 h-4" />
@@ -310,7 +319,7 @@ const HomePage = () => {
 
               {/* Extincteur */}
               <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow overflow-hidden">
-                <div className="h-48 bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center">
+                <div className={`h-48 bg-gradient-to-br ${extincteurTheme.gradient} flex items-center justify-center`}>
                   <div className="text-white text-6xl">🧯</div>
                 </div>
                 <div className="p-6">
@@ -328,7 +337,7 @@ const HomePage = () => {
                     <Link
                       to="/formations/incendie/extincteur"
                       onClick={() => handleFormationClick('Extincteur')}
-                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium inline-flex items-center gap-2"
+                      className={`px-4 py-2 rounded-lg transition-colors font-medium inline-flex items-center gap-2 ${extincteurTheme.button}`}
                     >
                       Découvrir
                       <ChevronRight className="w-4 h-4" />
@@ -366,10 +375,10 @@ const HomePage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Link
                 to="/vendee/la-roche-sur-yon"
-                className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${psc1Theme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-xl font-bold mb-2">La Roche-sur-Yon</h3>
-                <p className="text-blue-100">Préfecture de la Vendée</p>
+                <p className="text-white/80">Préfecture de la Vendée</p>
                 <div className="mt-4 flex items-center text-sm">
                   <MapPin className="w-4 h-4 mr-1" />
                   <span>Vendée (85)</span>
@@ -378,10 +387,10 @@ const HomePage = () => {
 
               <Link
                 to="/vendee/les-sables-d-olonne"
-                className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${gqsTheme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-xl font-bold mb-2">Les Sables-d'Olonne</h3>
-                <p className="text-green-100">Station balnéaire</p>
+                <p className="text-white/80">Station balnéaire</p>
                 <div className="mt-4 flex items-center text-sm">
                   <MapPin className="w-4 h-4 mr-1" />
                   <span>Vendée (85)</span>
@@ -390,10 +399,10 @@ const HomePage = () => {
 
               <Link
                 to="/vendee/challans"
-                className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${pse1Theme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-xl font-bold mb-2">Challans</h3>
-                <p className="text-purple-100">Nord Vendée</p>
+                <p className="text-white/80">Nord Vendée</p>
                 <div className="mt-4 flex items-center text-sm">
                   <MapPin className="w-4 h-4 mr-1" />
                   <span>Vendée (85)</span>
@@ -402,10 +411,10 @@ const HomePage = () => {
 
               <Link
                 to="/vendee"
-                className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                className={`bg-gradient-to-br ${macSstTheme.gradient} text-white rounded-xl p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all`}
               >
                 <h3 className="text-xl font-bold mb-2">+ Toute la Vendée</h3>
-                <p className="text-orange-100">& départements limitrophes</p>
+                <p className="text-white/80">& départements limitrophes</p>
                 <div className="mt-4 flex items-center text-sm">
                   <MapPin className="w-4 h-4 mr-1" />
                   <span>44, 49, 79, 85</span>
@@ -416,12 +425,12 @@ const HomePage = () => {
         </section>
 
         {/* Call to Action Final */}
-        <section className="py-16 bg-gradient-to-r from-red-500 to-red-600 text-white">
+        <section className={`py-16 bg-gradient-to-r ${sstTheme.gradient} text-white`}>
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Prêt à former vos équipes ?
             </h2>
-            <p className="text-xl mb-8 text-red-100">
+            <p className="text-xl mb-8 text-white/80">
               Obtenez votre devis personnalisé en moins d'une minute. 
               Réponse garantie sous 24h.
             </p>
@@ -430,14 +439,14 @@ const HomePage = () => {
               <Link
                 to="/devis-et-calendrier"
                 onClick={() => handleCTAClick('final_cta')}
-                className="bg-white text-red-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`bg-white px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${sstTheme.text}`}
               >
                 Demander un devis gratuit
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="tel:+33672128440"
-                className="bg-red-700 text-white px-8 py-4 rounded-lg hover:bg-red-800 transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2"
+                className={`px-8 py-4 rounded-lg transition-all transform hover:-translate-y-1 hover:shadow-xl font-bold text-lg inline-flex items-center justify-center gap-2 ${sstTheme.button}`}
               >
                 <Phone className="w-5 h-5" />
                 06 72 12 84 40
@@ -450,7 +459,7 @@ const HomePage = () => {
                 <span>4.9/5 - 47 avis Google</span>
               </div>
               <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-red-200" />
+                <Shield className="w-5 h-5 text-white/80" />
                 <span>Assurance RC Pro</span>
               </div>
             </div>
