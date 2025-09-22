@@ -57,9 +57,9 @@ export const formationThemes: Record<FormationThemeKey, FormationTheme> = {
     text: 'text-[#9f1239]'
   },
   evacuation: {
-    gradient: 'from-[#854d0e] to-[#422006]',
-    button: 'bg-[#854d0e] text-white hover:bg-[#422006]',
-    text: 'text-[#854d0e]'
+    gradient: 'from-[#713f0d] to-[#3b1b05]',
+    button: 'bg-[#713f0d] text-white hover:bg-[#3b1b05]',
+    text: 'text-[#713f0d]'
   }
 };
 

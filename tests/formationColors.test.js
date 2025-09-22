@@ -5,6 +5,38 @@ import path from 'node:path';
 
 const read = (relativePath) => fs.readFile(path.resolve(process.cwd(), relativePath), 'utf8');
 
+const AAA_CONTRAST = 7;
+
+const extractThemeMap = (source) => {
+  const match = source.match(/export const formationThemes:[^=]+=\s*({[\s\S]+?});/);
+  if (!match) {
+    throw new Error('Unable to locate formationThemes declaration');
+  }
+
+  // eslint-disable-next-line no-new-func
+  return Function(`return (${match[1]});`)();
+};
+
+const relativeLuminance = (hex) => {
+  const rgb = hex.match(/[\da-f]{2}/gi).map((component) => parseInt(component, 16) / 255);
+
+  const adjust = (channel) =>
+    channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+
+  const [r, g, b] = rgb.map(adjust);
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
+const contrastRatio = (hexA, hexB) => {
+  const luminanceA = relativeLuminance(hexA);
+  const luminanceB = relativeLuminance(hexB);
+
+  const [lighter, darker] = luminanceA > luminanceB ? [luminanceA, luminanceB] : [luminanceB, luminanceA];
+
+  return (lighter + 0.05) / (darker + 0.05);
+};
+
 const formationPages = [
   'src/pages/HomePage.tsx',
   'src/pages/formations/FormationsSecourismePage.tsx',
@@ -92,4 +124,70 @@ test('All formation themes expose gradient and button classes with accessible de
     /formationThemeKeys\s*=\s*Object\.keys\(formationThemes\)/,
     'formationThemeKeys should derive from the theme map'
   );
+});
+
+test('Formation themes guarantee WCAG AAA contrast for text usage', async () => {
+  const source = await read('src/utils/formationThemes.ts');
+  const themes = extractThemeMap(source);
+
+  Object.entries(themes).forEach(([key, theme]) => {
+    const gradientColors = theme.gradient.match(/#[0-9a-fA-F]{6}/g) ?? [];
+    assert.ok(gradientColors.length >= 2, `Gradient for ${key} should declare at least two hex colours`);
+    gradientColors.forEach((hex) => {
+      const ratio = contrastRatio(hex, '#ffffff');
+      assert.ok(
+        ratio >= AAA_CONTRAST,
+        `Gradient colour ${hex} for ${key} should reach AAA contrast with white text (ratio=${ratio.toFixed(2)})`
+      );
+    });
+
+    const buttonColours = [...new Set(theme.button.match(/#[0-9a-fA-F]{6}/g) ?? [])];
+    assert.ok(buttonColours.length >= 1, `Button for ${key} should declare at least one hex background colour`);
+    buttonColours.forEach((hex) => {
+      const ratio = contrastRatio(hex, '#ffffff');
+      assert.ok(
+        ratio >= AAA_CONTRAST,
+        `Button background ${hex} for ${key} should reach AAA contrast with white text (ratio=${ratio.toFixed(2)})`
+      );
+    });
+
+    const textColours = [...new Set(theme.text.match(/#[0-9a-fA-F]{6}/g) ?? [])];
+    assert.ok(textColours.length === 1, `Text colour for ${key} should expose exactly one hex value`);
+    textColours.forEach((hex) => {
+      const ratio = contrastRatio(hex, '#ffffff');
+      assert.ok(
+        ratio >= AAA_CONTRAST,
+        `Text colour ${hex} for ${key} should reach AAA contrast on a white background (ratio=${ratio.toFixed(2)})`
+      );
+    });
+  });
+});
+
+test('Formation colour palette is documented alongside their hex values', async () => {
+  const [source, documentation] = await Promise.all([
+    read('src/utils/formationThemes.ts'),
+    read('docs/formation-colors.md')
+  ]);
+
+  const themes = extractThemeMap(source);
+
+  Object.entries(themes).forEach(([key, theme]) => {
+    assert.ok(
+      documentation.includes(key),
+      `Documentation should mention the ${key} formation key`
+    );
+
+    const hexValues = new Set([
+      ...(theme.gradient.match(/#[0-9a-fA-F]{6}/g) ?? []),
+      ...(theme.button.match(/#[0-9a-fA-F]{6}/g) ?? []),
+      ...(theme.text.match(/#[0-9a-fA-F]{6}/g) ?? [])
+    ]);
+
+    hexValues.forEach((hex) => {
+      assert.ok(
+        documentation.includes(hex),
+        `Documentation should list ${hex} for ${key}`
+      );
+    });
+  });
 });
